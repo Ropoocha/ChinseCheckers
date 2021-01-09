@@ -64,6 +64,6 @@ public class ButtonListener implements MouseListener {
   }
 
   public String getMove() {
-    return Objects.requireNonNullElse(first.getIndex(), -1) + " " + Objects.requireNonNullElse(second.getIndex(), -1);
+    return Objects.requireNonNullElse(first, new Button(null, -1)).getIndex() + " " + Objects.requireNonNullElse(second, new Button(null, -1)).getIndex();
   }
 }

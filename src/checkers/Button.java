@@ -23,7 +23,7 @@ public class Button extends JPanel {
 
   private Color color = Color.BLACK;
   private final Color baseColor = new Color(105, 70, 56);
-  private Player player = Player.CLEAR;
+  private Player player;
   private int index;
 
   private boolean selected = false;

@@ -185,4 +185,16 @@ public class Board extends JPanel {
   public ButtonListener getListener() {
     return listener;
   }
+
+  public synchronized void setMove(int first, int second) {
+    if (first == -1 || second == -1) {
+      return;
+    }
+    Player temp = buttons.get(first).getPlayer();
+    System.out.println(temp);
+    buttons.get(first).setPlayer(Player.CLEAR);
+    buttons.get(first).repaint();
+    buttons.get(second).setPlayer(temp);
+    buttons.get(second).repaint();
+  }
 }

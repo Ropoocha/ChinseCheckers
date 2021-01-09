@@ -60,11 +60,16 @@ public class Client {
             throw new NumberFormatException("Server passed variables in a wrong format (How???)");
           }
         } else if (line.startsWith("MAKEMOVE")) {
-          int playerId = Integer.parseInt(line.substring(9));
+          out.println(board.getListener().getMove());
         } else if (line.startsWith("RETURNMOVE")) {
           out.println(board.getListener().getMove());
         } else if (line.startsWith("ID")) {
           id = Integer.parseInt(line.substring(3));
+        } else if (line.startsWith("SYNC")) {
+          String move = line.substring(5);
+          if (board != null) {
+            board.setMove(Integer.parseInt(move.split(" ")[0]), Integer.parseInt(move.split(" ")[1]));
+          }
         }
       }
     } finally {

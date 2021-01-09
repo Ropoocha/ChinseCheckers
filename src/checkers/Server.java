@@ -16,8 +16,8 @@ public class Server {
   private static Integer playerAmount = -1;
   private static boolean serverSet = false;
   private static int currentlyConnected = 0;
-  private static ArrayList<PrintWriter> writers = new ArrayList<>();
-  private static ArrayList<Scanner> readers = new ArrayList<>();
+  private static final ArrayList<PrintWriter> writers = new ArrayList<>();
+  private static final ArrayList<Scanner> readers = new ArrayList<>();
 
   public Server() {
     this.playerDirector = new PlayerDirector(playerAmount, boardSize, this);
@@ -150,12 +150,14 @@ public class Server {
         // Send playerAmount and boardSize to next clients
         out.println("VARIABLES " + playerAmount + " " + boardSize);
 
-        out.println("ID " + currentlyConnected);
-        while (true) {
-          for (int i = 0; i < playerAmount; ++i) {
-            out.println("MAKEMOVE " + i);
+          while (true) {
+            out.println("MAKEMOVE");
+            String move = in.nextLine();
+            for (PrintWriter writer : writers) {
+              writer.println("SYNC " + Integer.parseInt(move.split(" ")[0]) + " " + Integer
+                  .parseInt(move.split(" ")[1]));
+            }
           }
-        }
 
       } catch (IOException ioException) {
         ioException.printStackTrace();
